@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCart — Customer Segmentation using Unsupervised ML</title>
+  <meta name="description" content="SmartCart segments 2,240 retail customers into behavioral groups using unsupervised machine learning. A data science case study by Akshat." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════ NAV ═══════════════════════ -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">SmartCart</a>
+    <ul class="nav__links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#dataset">Dataset</a></li>
+      <li><a href="#pipeline">Pipeline</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#tech">Tech Stack</a></li>
+      <li><a href="#learnings">Learnings</a></li>
+    </ul>
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <header class="hero" id="hero">
+    <div class="hero__bg-grid"></div>
+    <div class="container hero__inner">
+      <p class="hero__eyebrow reveal">Unsupervised Machine Learning Project</p>
+      <h1 class="hero__title reveal">SmartCart</h1>
+      <p class="hero__subtitle reveal">Customer Segmentation using Unsupervised Machine Learning</p>
+      <p class="hero__hook reveal">"Not every customer behaves the same — so why treat every customer the same?"</p>
+      <div class="hero__actions reveal">
+        <a href="https://github.com/tannaakshat447/SmartCart" class="btn btn--primary" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="https://github.com/tannaakshat447/SmartCart/blob/main/smartcart.ipynb" class="btn btn--outline" target="_blank" rel="noopener">View Notebook</a>
+      </div>
+    </div>
+    <div class="hero__scroll-hint">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
+  <section class="section" id="problem">
+    <div class="container">
+      <span class="section__label reveal">01</span>
+      <h2 class="section__title reveal">Problem Statement</h2>
+      <div class="problem__content reveal">
+        <p>
+          Most retail businesses default to a one-size-fits-all approach — the same campaigns, the same offers, the same messaging for every customer. That's not just inefficient; it actively ignores the diversity sitting in the data.
+        </p>
+        <p>
+          This project asks a simple question: <strong>do natural customer segments emerge from purchasing behavior, demographics, and engagement data alone — without any predefined labels?</strong>
+        </p>
+        <p>
+          Using unsupervised learning on 2,240 customer records, SmartCart explores whether meaningful, interpretable groups exist in the data, and what those groups reveal about how different customers interact with a retail brand.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ DATASET ═══════════════════════ -->
+  <section class="section section--alt" id="dataset">
+    <div class="container">
+      <span class="section__label reveal">02</span>
+      <h2 class="section__title reveal">Dataset Overview</h2>
+      <p class="section__desc reveal">
+        The dataset captures a rich profile of each customer — who they are, what they buy, how they shop, and how they respond to marketing.
+      </p>
+
+      <div class="stats-row reveal">
+        <div class="stat-card">
+          <span class="stat-card__number">2,240</span>
+          <span class="stat-card__label">Customer Records</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__number">22</span>
+          <span class="stat-card__label">Raw Features</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card__number">4</span>
+          <span class="stat-card__label">Final Segments</span>
+        </div>
+      </div>
+
+      <div class="feature-grid reveal">
+        <div class="feature-card">
+          <div class="feature-card__icon">👤</div>
+          <h3 class="feature-card__title">Demographics</h3>
+          <p>Age, income, education level, marital status, number of children</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🛒</div>
+          <h3 class="feature-card__title">Spending</h3>
+          <p>Expenditure across wines, meats, fish, sweets, fruits, and gold products</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🔀</div>
+          <h3 class="feature-card__title">Purchase Channels</h3>
+          <p>Web purchases, catalog purchases, in-store purchases, and website visits</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">📣</div>
+          <h3 class="feature-card__title">Campaign Response</h3>
+          <p>Acceptance of marketing campaigns 1 through 5, plus the most recent campaign</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">📅</div>
+          <h3 class="feature-card__title">Engagement</h3>
+          <p>Customer tenure, recency of last purchase, total number of deals purchased</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ PIPELINE ═══════════════════════ -->
+  <section class="section" id="pipeline">
+    <div class="container">
+      <span class="section__label reveal">03</span>
+      <h2 class="section__title reveal">Workflow &amp; Pipeline</h2>
+      <p class="section__desc reveal">
+        From raw data to interpretable customer segments — a seven-stage pipeline built for clarity and reproducibility.
+      </p>
+
+      <div class="pipeline">
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">1</div>
+          <div class="pipeline__body">
+            <h3>Data Preprocessing</h3>
+            <p>Handled missing values via <strong>median imputation</strong>. Cleaned column types, parsed dates, and standardized categorical labels.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">2</div>
+          <div class="pipeline__body">
+            <h3>Feature Engineering</h3>
+            <p>Derived meaningful features: <code>Age</code>, <code>Customer_Tenure_Days</code>, <code>Total_Spending</code>, <code>Total_Children</code>. Simplified <code>Education</code> and <code>Living_With</code> into cleaner groupings.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">3</div>
+          <div class="pipeline__body">
+            <h3>Outlier Removal</h3>
+            <p>Filtered records where age &ge; 90 or income &ge; &#8377;6,00,000. Reduced dataset from <strong>2,240 → 2,236</strong> records — a minimal, justified trim.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">4</div>
+          <div class="pipeline__body">
+            <h3>Encoding &amp; Scaling</h3>
+            <p>Applied <code>OneHotEncoder</code> on categorical features and <code>StandardScaler</code> across all numeric features to normalize the feature space.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">5</div>
+          <div class="pipeline__body">
+            <h3>Dimensionality Reduction</h3>
+            <p>Ran <strong>PCA</strong> to reduce to 3 principal components, capturing <strong>~44.95%</strong> of total variance — enough for meaningful spatial separation.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">6</div>
+          <div class="pipeline__body">
+            <h3>Choosing K</h3>
+            <p>Used the <strong>Elbow Method</strong> (WCSS / KneeLocator) and <strong>Silhouette Score</strong> analysis to converge on <strong>K&nbsp;=&nbsp;4</strong> as the optimal number of clusters.</p>
+          </div>
+        </div>
+
+        <div class="pipeline__step reveal">
+          <div class="pipeline__marker">7</div>
+          <div class="pipeline__body">
+            <h3>Clustering</h3>
+            <p>Compared <strong>K-Means</strong> and <strong>Agglomerative Clustering</strong> (Ward linkage). Both were evaluated; Agglomerative Clustering was selected for the final segmentation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ RESULTS ═══════════════════════ -->
+  <section class="section section--alt" id="results">
+    <div class="container">
+      <span class="section__label reveal">04</span>
+      <h2 class="section__title reveal">Results</h2>
+      <p class="section__desc reveal">
+        Agglomerative Clustering with Ward linkage produced four interpretable customer segments. These aren't "perfect" clusters — they're data-driven groupings that surface real behavioral differences.
+      </p>
+
+      <!-- Cluster size cards -->
+      <div class="cluster-row reveal">
+        <div class="cluster-card cluster-card--0">
+          <span class="cluster-card__id">Cluster 0</span>
+          <span class="cluster-card__count">977</span>
+          <span class="cluster-card__unit">customers</span>
+        </div>
+        <div class="cluster-card cluster-card--1">
+          <span class="cluster-card__id">Cluster 1</span>
+          <span class="cluster-card__count">577</span>
+          <span class="cluster-card__unit">customers</span>
+        </div>
+        <div class="cluster-card cluster-card--2">
+          <span class="cluster-card__id">Cluster 2</span>
+          <span class="cluster-card__count">470</span>
+          <span class="cluster-card__unit">customers</span>
+        </div>
+        <div class="cluster-card cluster-card--3">
+          <span class="cluster-card__id">Cluster 3</span>
+          <span class="cluster-card__count">212</span>
+          <span class="cluster-card__unit">customers</span>
+        </div>
+      </div>
+
+      <p class="results__characterization reveal">
+        Each cluster was profiled across <strong>income</strong>, <strong>total spending</strong>, <strong>purchase channels</strong> (web, catalog, in-store), <strong>web visits</strong>, <strong>campaign response rates</strong>, <strong>age distribution</strong>, <strong>number of children</strong>, <strong>education level</strong>, and <strong>living arrangement</strong> — revealing distinct behavioral signatures per group.
+      </p>
+
+      <!-- Chart placeholders -->
+      <div class="chart-grid reveal">
+        <div class="chart-placeholder">
+          <div class="chart-placeholder__inner">
+            <img src="assets/cluster_sizes.png" alt="Bar chart showing cluster size distribution — Cluster 0: 977, Cluster 1: 577, Cluster 2: 470, Cluster 3: 212" />
+          </div>
+        </div>
+
+        <div class="chart-placeholder">
+          <div class="chart-placeholder__inner">
+            <img src="assets/pca_3d_scatter.png" alt="3D PCA scatter plot showing four customer clusters separated in principal component space" />
+          </div>
+        </div>
+
+        <div class="chart-placeholder">
+          <div class="chart-placeholder__inner">
+            <img src="assets/income_vs_spending.png" alt="Scatter plot of Income vs Total Spending colored by cluster assignment" />
+          </div>
+        </div>
+
+        <div class="chart-placeholder">
+          <div class="chart-placeholder__inner">
+            <img src="assets/elbow_silhouette.png" alt="Combined Elbow Method (WCSS) and Silhouette Score plot with K=4 highlighted" />
+          </div>
+        </div>
+
+        <div class="chart-placeholder chart-placeholder--wide">
+          <div class="chart-placeholder__inner">
+            <img src="assets/cluster_profiles.png" alt="Box plots showing Income, Total Spending, Age, and Total Children distributions across the four clusters" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ TECH STACK ═══════════════════════ -->
+  <section class="section" id="tech">
+    <div class="container">
+      <span class="section__label reveal">05</span>
+      <h2 class="section__title reveal">Tech Stack</h2>
+      <p class="section__desc reveal">Libraries and techniques used across the pipeline.</p>
+
+      <div class="badge-row reveal">
+        <span class="badge">Python</span>
+        <span class="badge">Pandas</span>
+        <span class="badge">NumPy</span>
+        <span class="badge">Matplotlib</span>
+        <span class="badge">Seaborn</span>
+        <span class="badge">Scikit-learn</span>
+        <span class="badge">PCA</span>
+        <span class="badge">K-Means</span>
+        <span class="badge">Agglomerative Clustering</span>
+        <span class="badge">OneHotEncoder</span>
+        <span class="badge">StandardScaler</span>
+        <span class="badge">Silhouette Score</span>
+        <span class="badge">KneeLocator</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ KEY LEARNINGS ═══════════════════════ -->
+  <section class="section section--alt" id="learnings">
+    <div class="container">
+      <span class="section__label reveal">06</span>
+      <h2 class="section__title reveal">Key Learnings</h2>
+      <div class="learnings__content reveal">
+        <blockquote class="learnings__quote">
+          Feature engineering mattered more than algorithm choice.
+        </blockquote>
+        <p>
+          The biggest improvements in cluster interpretability came not from switching algorithms, but from how the raw features were transformed — deriving <code>Total_Spending</code>, simplifying <code>Living_With</code>, and engineering <code>Customer_Tenure_Days</code> gave the algorithms much cleaner signal to work with.
+        </p>
+        <p>
+          Comparing K-Means and Agglomerative Clustering on the same data revealed how differently each algorithm groups customers — same features, same K, different segment boundaries. That comparison alone was one of the most instructive parts of the project.
+        </p>
+        <p>
+          And the honest constraint: this is unsupervised learning. There's no ground-truth accuracy metric, no F1 score, no confusion matrix. The measure of success here is <strong>interpretability</strong> — whether the segments make sense when you profile them, and whether they surface patterns a business could actually act on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <h2 class="footer__title">SmartCart</h2>
+        <p class="footer__credit">Built by <strong>Akshat</strong> — B.Tech Data Science &amp; AI, IIIT Ranchi</p>
+      </div>
+      <div class="footer__links">
+        <a href="https://github.com/tannaakshat447/SmartCart" class="footer__link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/akshattanna447/" class="footer__link" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:akshattanna4470@gmail.com" class="footer__link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Email
+        </a>
+      </div>
+      <p class="footer__copy">&copy; 2026 Akshat. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
