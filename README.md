@@ -1,6 +1,7 @@
 # SmartCart – Customer Segmentation using Unsupervised Learning
 
 🔗 **Repo:** [github.com/tannaakshat447/SmartCart](https://github.com/tannaakshat447/SmartCart)
+🌐 **Live Demo:** [smart-cart-mu.vercel.app](https://smart-cart-mu.vercel.app/)
 
 SmartCart analyzes customer behavior data and groups customers into meaningful segments using unsupervised machine learning. Instead of predicting an outcome, the goal is to discover natural customer groups from purchasing, demographic, and engagement data — useful for tailoring marketing and business strategy to different customer types.
 
